@@ -1,3 +1,6 @@
+/**
+ * Created by vincent on 10/4/15.
+ */
 var express = require("express");
 var app = express();
 var cors = require("cors");
@@ -9,30 +12,21 @@ app.use(bodyParser());
 
 //mongodb setup
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost/jetbrains');
+mongoose.connect('mongodb://localhost:10657/titledog');
 
+//I guess this defines the model
+var GeoDetail = mongoose.model('GeoDetail', {fips: String, searchable_detail: String});
 
-var Product = mongoose.model('Product', {name: String});
-
-var product = new Product({name: 'WebStorm'});
-product.save(function (err) {
-    if(err) {
-        console.log('failed');
-    }else{
-        console.log('saved');
-    }
-});
-
-app.get("/", function (req, res) {
-    Product.find(function (err, products) {
-        res.send(products);
+//CRUD methods
+app.get("/geodetail/", function (req, res) {
+    GeoDetail.find(function (err, geodetails) {
+        res.send(geodetails);
     })
 });
 
-app.post("/add", function(req, res) {
-    var name = req.body.name;
-    var product = new Product({name: name});
-    product.save(function (err) {
+app.post("/geodetail/add/", function(req, res) {
+    var geodetail = new GeoDetail(req.body.geodetail);
+    geodetail.save(function (err) {
         res.send();
     })
 });

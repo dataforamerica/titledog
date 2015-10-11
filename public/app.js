@@ -1,23 +1,23 @@
 /**
  * Created by vincent on 9/12/15.
  */
- var jetbrains = angular.module("jetbrains", []);
+ var titledog = angular.module("titledog", []);
 
-jetbrains.controller("AppCtrl", function ($http) {
+titledog.controller("AppCtrl", function ($http) {
     var app = this;
     var url = "http://localhost:3000";
 
-    app.saveProduct = function (newProduct) {
-        $http.post(url + "/add", {name:newProduct}).success(function () {
-            loadProducts();
+    app.saveGeoDetail = function (geodetail) {
+        $http.post(url + "/geodetail/add/", {geodetail: geodetail}).success(function () {
+            loadGeoDetails();
         })
     }
 
-    function loadProducts() {
-        $http.get("http://localhost:3000").success(function (products) {
-            app.products = products;
+    function loadGeoDetails() {
+        $http.get(url + "/geodetail/").success(function (geodetails) {
+            app.geodetails = geodetails;
         })
     }
 
-    loadProducts();
+    loadGeoDetails();
 });
