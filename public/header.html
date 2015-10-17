@@ -1,0 +1,21 @@
+<!--
+<div class="form-group" style="display:inline;">
+<div class="input-group" style="display:table; width: 100%">
+    <input class="form-control" ng-model="location" placeholder="Address or City, State or Zip or FIPS" type="text">
+    <span class="input-group-btn" style="width:1%;"> </span>
+    <button class="btn btn-default" type="submit" ng-click="getLocation(location)"> <i class="glyphicon glyphicon-search"></i> </button>
+</div>
+</div>-->
+<div class="form-group" style="display:inline;">
+    <div class="input-group" style="display:table; width: 100%">
+        <input type="text" ng-model="selected" typeahead-on-select="setPcode($item)" placeholder="Address or City, State or Zip or FIPS" uib-typeahead="location.location for location in getLocation($viewValue)| limitTo:10" typeahead-no-results="noResults" class="form-control">
+        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+        <div ng-show="noResults">
+            <i class="glyphicon glyphicon-remove"></i> No Results Found
+        </div>
+        <span class="input-group-btn" style="width:1%;"> </span>
+        <button class="btn btn-default" type="submit" ng-click="getLocation(location)"> <i class="glyphicon glyphicon-search"></i> </button>
+    </div>
+</div>
+
+

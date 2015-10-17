@@ -12,15 +12,23 @@ app.use(bodyParser());
 
 //mongodb setup
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost:10657/titledog');
+mongoose.connect('mongodb://localhost:27017/titledog', function (error){
+    if (error) {
+        console.log(error);
+    }
+});
+//var userSchema = new mongoose.Schema({name:String});
+
+var userSchema = new mongoose.Schema({location:String});
 
 //I guess this defines the model
-var GeoDetail = mongoose.model('GeoDetail', {fips: String, searchable_detail: String});
+var Geolist = mongoose.model('Geolist', userSchema);
 
 //CRUD methods
-app.get("/geodetail/", function (req, res) {
-    GeoDetail.find(function (err, geodetails) {
-        res.send(geodetails);
+app.get("/:location", function (req, res) {
+    var loc = '^' + req.params.location;
+    Geolist.find({location : new RegExp(loc, 'i')  },function (err, geolists) {
+        res.send(geolists);
     })
 });
 
