@@ -60,7 +60,7 @@
       <!-- Order summary panel -->
       <div class="panel panel-default">
         <div class="panel-body">
-          <h4>{{title}}</h4>
+          <h4>{{result.county_display.state}}  {{result.county_display.county}}  {{result.county_display.fips}} </h4>
         </div>
       </div>
       <!-- /Order summary panel -->
@@ -73,13 +73,18 @@
         </ul>
       
       <!-- Details list panel -->
-      <ul class="list-group">
-        <li class="list-group-item">Recorder</li>
-        <li class="list-group-item">Tax</li>
-        <li class="list-group-item">Assessor</li>
-        <li class="list-group-item">Collector</li>
-        <li class="list-group-item">Courts</li>
+      <ul class="list-group" ng-repeat="source in dataSources" ng-show="hasResult">
+        <li class="list-group-item" style="word-wrap: break-word;">{{source.source_name}}: <a href="{{source.source_url}}">{{source.source_url}}</a></li>
       </ul>
+
+      <ul class="list-group" ng-show="!hasResult">
+        <li class="list-group-item" style="word-wrap: break-word;">Recorder</li>
+        <li class="list-group-item" style="word-wrap: break-word;">Tax</li>
+        <li class="list-group-item" style="word-wrap: break-word;">Assessor</li>
+        <li class="list-group-item" style="word-wrap: break-word;">Collector</li>
+        <li class="list-group-item" style="word-wrap: break-word;">Courts</li>
+      </ul>
+
       <!-- /Details list panel --> 
       
       <!-- Comments panel -->

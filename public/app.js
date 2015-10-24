@@ -8,6 +8,9 @@ titledog.controller("AppCtrl", function ($http, $scope) {
     var url = "http://localhost:3000";
     $scope.locResults = [];
     $scope.title = "";
+    $scope.result = {};
+    $scope.dataSources = {};
+    $scope.hasResult = false;
 
 
 
@@ -42,9 +45,27 @@ titledog.controller("AppCtrl", function ($http, $scope) {
     });
 
     $scope.setPcode = function(v){
-        $scope.title = v.county_display.state + ' / ' + v.county_display.county + ' (' +v.county_display.fips+')';
+        if(v != null && v!= undefined)
+        {
+            $scope.result = v;
+            $scope.dataSources = v.data_sources;
+            $scope.hasResult = true;
+        }
+        //$scope.title = v.county_display.state + ' / ' + v.county_display.county + ' (' +v.county_display.fips+')';
         console.log(v)
     };
+
+    $scope.$watch('selected', function(query){
+        if(query == null || query == '' || query == undefined)
+        {
+            $scope.result = {};
+            $scope.dataSources = {};
+            $scope.hasResult = false;
+        }
+    });
+    $scope.$watch('dataSources', function(val){
+        console.log(val.length);
+    });
 
 
 
